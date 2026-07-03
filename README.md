@@ -1,3 +1,9 @@
+![claude-model-guard: a passive audit log of Claude Code's model routing](assets/banner.svg)
+
+[![MIT license](https://img.shields.io/badge/license-MIT-14B8A6)](LICENSE)
+[![Node.js](https://img.shields.io/badge/runtime-Node.js-0D9488)](#requirements)
+[![Claude Code skill](https://img.shields.io/badge/Claude%20Code-skill-14B8A6)](#install)
+
 # claude-model-guard
 
 A Claude Code skill that passively logs how Claude Code has been **routing
@@ -114,11 +120,4 @@ claude-model-guard/
   SKILL.md                     # skill manifest (triggers + instructions)
   README.md
   scripts/
-    scan-model-switches.mjs    # parser + report renderer
-    render-pdf.py              # fpdf2 md->pdf (no headless browser)
-    install.mjs                # add hooks + scheduler + initial scan
-    uninstall.mjs              # remove hooks + scheduler
-```
-
-Data/output is written to `~/.claude/claude-model-guard/` (kept separate from
-this code so updating the skill never wipes your log).
+    scan-model-switches.mjs    # parser + report rende
