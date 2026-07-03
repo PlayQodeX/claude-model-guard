@@ -1,0 +1,8 @@
+# The skill ships only code + docs. Runtime data (state.json, the md/pdf reports,
+# run.log) is written to ~/.claude/claude-model-guard/, never into this repo.
+node_modules/
+*.log
+*.bak
+*.bak-*
+.DS_Store
+Thumbs.db
