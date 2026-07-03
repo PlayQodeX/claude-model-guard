@@ -1,3 +1,9 @@
+![claude-model-guard: a passive audit log of Claude Code's model routing](assets/banner.svg)
+
+[![MIT license](https://img.shields.io/badge/license-MIT-14B8A6)](LICENSE)
+[![Node.js](https://img.shields.io/badge/runtime-Node.js-0D9488)](#requirements)
+[![Claude Code skill](https://img.shields.io/badge/Claude%20Code-skill-14B8A6)](#install)
+
 # claude-model-guard
 
 A Claude Code skill that passively logs how Claude Code has been **routing
@@ -27,8 +33,17 @@ Updated automatically at **session end**, before **compaction**, and by a
 ## Requirements
 
 - **Node.js** (already required by Claude Code).
-- **Python + `fpdf2`** for the PDF (`pip install fpdf2`). Optional — without it
-  you still get the Markdown reports.
+- **Branded PDF (recommended):** the **hq-report** skill installed at
+  `~/.claude/skills/hq-report/` plus its deps (`pyyaml`, `markdown`, `weasyprint`).
+  When present, reports render through hq-report's branded engine (dark cover,
+  accent headings, styled tables) using this skill's teal theme at
+  [`branding/report-brand.json`](branding/report-brand.json).
+- **Fallback PDF:** `python` + `fpdf2` (`pip install fpdf2`) — a clean basic PDF
+  when hq-report isn't installed.
+- With no Python at all you still get the Markdown reports.
+
+The renderer is chosen automatically: **hq-report → fpdf2 → Markdown-only**. Point
+`CLAUDE_MODEL_GUARD_HQREPORT` at a `render-doc-pdf.py` to override discovery.
 
 ## Install
 
@@ -105,10 +120,12 @@ claude-model-guard/
   SKILL.md                     # skill manifest (triggers + instructions)
   README.md
   scripts/
-    scan-model-switches.mjs    # parser + report renderer
-    render-pdf.py              # fpdf2 md->pdf (no headless browser)
+    scan-model-switches.mjs    # parser + report renderer (fallback detection)
+    render-pdf.py              # fpdf2 md->pdf fallback (no headless browser)
     install.mjs                # add hooks + scheduler + initial scan
     uninstall.mjs              # remove hooks + scheduler
+  branding/
+    report-brand.json          # teal theme, used by the hq-report renderer
 ```
 
 Data/output is written to `~/.claude/claude-model-guard/` (kept separate from

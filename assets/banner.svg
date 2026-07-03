@@ -1,0 +1,37 @@
+<svg width="1280" height="320" viewBox="0 0 1280 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="claude-model-guard: a passive audit log of Claude Code's model routing">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="0%" r="120%">
+      <stop offset="0%" stop-color="#14231E"/>
+      <stop offset="55%" stop-color="#0F1A17"/>
+      <stop offset="100%" stop-color="#0A0F0D"/>
+    </radialGradient>
+    <linearGradient id="track" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0D9488"/>
+      <stop offset="100%" stop-color="#14B8A6"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0D9488"/>
+      <stop offset="100%" stop-color="#14B8A6"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1280" height="320" rx="16" fill="url(#glow)"/>
+  <rect x="1" y="1" width="1278" height="318" rx="15" fill="none" stroke="rgba(20,184,166,0.30)" stroke-width="1.5"/>
+
+  <!-- diverging-track motif -->
+  <path d="M 70 165 L 235 165" stroke="#14B8A6" stroke-width="4" fill="none" opacity="0.9"/>
+  <circle cx="240" cy="165" r="10" fill="#0A0F0D" stroke="#5EEAD4" stroke-width="3"/>
+  <path d="M 240 165 C 290 165 305 118 355 110" stroke="#3d5a52" stroke-width="3" stroke-dasharray="7 9" fill="none"/>
+  <path d="M 240 165 C 295 165 310 212 365 220" stroke="url(#track)" stroke-width="4" fill="none"/>
+  <circle cx="240" cy="222" r="6" fill="#f87171"/>
+  <text x="258" y="229" font-family="ui-monospace, 'JetBrains Mono', 'Cascadia Code', monospace" font-size="17" fill="#5EEAD4" opacity="0.85">logged</text>
+
+  <!-- title block -->
+  <text x="440" y="145" font-family="Inter, -apple-system, 'Segoe UI', sans-serif" font-size="54" font-weight="700" fill="#F0FDFA">claude-model-guard</text>
+  <text x="440" y="200" font-family="Inter, -apple-system, 'Segoe UI', sans-serif" font-size="25" fill="#9fb8b1">A passive audit log of Claude Code's model routing.</text>
+  <text x="440" y="238" font-family="Inter, -apple-system, 'Segoe UI', sans-serif" font-size="25" fill="#6d8680">Every fallback, every classifier block. Local only, md + pdf.</text>
+
+  <!-- badge mark -->
+  <rect x="1150" y="60" width="64" height="64" rx="14" fill="url(#mark)"/>
+  <text x="1182" y="105" text-anchor="middle" font-family="Inter, -apple-system, 'Segoe UI', sans-serif" font-size="40" font-weight="700" fill="#0A0F0D">M</text>
+</svg>

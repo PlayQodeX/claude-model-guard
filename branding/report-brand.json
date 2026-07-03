@@ -1,0 +1,22 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/skills/main/hq-report/branding/report-brand.schema.json",
+  "_about": "Brand theme for claude-model-guard reports, rendered via the hq-report skill's engine. Teal-on-slate so the routing log reads as a monitoring/guard report. Colors map 1:1 onto the template's --brand-* CSS variables.",
+  "name": "claude-model-guard",
+  "mark": "M",
+  "org_tld": "github.com/PlayQodeX/claude-model-guard",
+  "colors": {
+    "indigo": "#0D9488",
+    "violet": "#14B8A6",
+    "violet_soft": "#F0FDFA",
+    "accent_light": "#5EEAD4",
+    "cover_1": "#0A0F0D",
+    "cover_2": "#0F1A17",
+    "cover_3": "#14231E",
+    "glow_violet": "rgba(20, 184, 166, 0.35)",
+    "glow_indigo": "rgba(13, 148, 136, 0.28)",
+    "mark_from": "#0D9488",
+    "mark_to": "#14B8A6",
+    "mark_shadow": "rgba(20, 184, 166, 0.45)",
+    "accent_border": "rgba(20, 184, 166, 0.30)"
+  }
+}

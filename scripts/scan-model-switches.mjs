@@ -302,23 +302,86 @@ function renderBlockMd(state) {
   return md;
 }
 
-function renderPdf(mdPath, pdfPath) {
+const PY_CMDS = ["python3", "python", "py"];
+const BRAND_JSON = path.join(HERE, "..", "branding", "report-brand.json");
+
+// Locate the hq-report skill's renderer, if the user has that skill installed.
+function locateHqReport() {
+  const cands = [
+    process.env.CLAUDE_MODEL_GUARD_HQREPORT,
+    path.join(CLAUDE_DIR, "skills", "hq-report", "renderer", "render-doc-pdf.py"),
+  ].filter(Boolean);
+  for (const c of cands) { try { if (fs.existsSync(c)) return c; } catch {} }
+  return null;
+}
+
+function frontmatter(meta) {
+  const esc = (v) => `"${String(v).replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;
+  const lines = ["---"];
+  for (const [k, v] of Object.entries(meta)) if (v != null) lines.push(`${k}: ${esc(v)}`);
+  lines.push("---", "");
+  return lines.join("\n");
+}
+
+// Primary: branded PDF via the hq-report skill (WeasyPrint + our teal brand).
+// Prepends YAML frontmatter to a temp copy so hq-report renders a proper cover;
+// the canonical .md stays frontmatter-free (readable + fpdf2-fallback-safe).
+function renderViaHqReport(mdPath, pdfPath, meta) {
+  const hq = locateHqReport();
+  if (!hq) return false;
+  const tmp = path.join(DATA_DIR, ".hq-" + path.basename(mdPath));
+  try {
+    fs.writeFileSync(tmp, frontmatter(meta) + fs.readFileSync(mdPath, "utf8"));
+    const brandArg = fs.existsSync(BRAND_JSON) ? ` --brand "${BRAND_JSON}"` : "";
+    for (const cmd of PY_CMDS) {
+      try {
+        execSync(`${cmd} "${hq}" "${tmp}" --out "${pdfPath}"${brandArg}`,
+          { stdio: "ignore", timeout: 90000, windowsHide: true });
+        log(`PDF via hq-report (${cmd}): ${pdfPath}`);
+        return true;
+      } catch (e) { log(`hq-report ${cmd} failed: ${e.message}`); }
+    }
+    return false;
+  } catch (e) { log(`hq-report setup failed: ${e.message}`); return false; }
+  finally { try { fs.rmSync(tmp, { force: true }); } catch {} }
+}
+
+// Fallback: bundled fpdf2 renderer (pure Python, no native libs, always works).
+function renderViaFpdf(mdPath, pdfPath) {
   const py = path.join(HERE, "render-pdf.py");
-  if (!fs.existsSync(py)) { log("render-pdf.py missing — PDF skipped."); return false; }
-  for (const cmd of ["python3", "python", "py"]) {
+  if (!fs.existsSync(py)) return false;
+  for (const cmd of PY_CMDS) {
     try {
       execSync(`${cmd} "${py}" "${mdPath}" "${pdfPath}"`, { stdio: "ignore", timeout: 30000, windowsHide: true });
-      log(`PDF rendered via ${cmd}: ${pdfPath}`); return true;
-    } catch (e) { log(`PDF render failed (${cmd}): ${e.message}`); }
+      log(`PDF via fpdf2 (${cmd}): ${pdfPath}`);
+      return true;
+    } catch (e) { log(`fpdf2 ${cmd} failed: ${e.message}`); }
   }
-  log(`PDF render skipped (need python + fpdf2) — ${path.basename(mdPath)} still updated.`);
   return false;
 }
+
+// Best-effort: branded hq-report render first, fpdf2 second. The .md is the
+// source of truth; a PDF failure never fails the run.
+function renderPdf(mdPath, pdfPath, meta) {
+  if (renderViaHqReport(mdPath, pdfPath, meta)) return true;
+  if (renderViaFpdf(mdPath, pdfPath)) return true;
+  log(`PDF skipped (need hq-report+WeasyPrint or python+fpdf2) — ${path.basename(mdPath)} still updated.`);
+  return false;
+}
+
 function renderAll(state) {
   fs.writeFileSync(MD_PATH, renderSwitchMd(state));
-  renderPdf(MD_PATH, PDF_PATH);
+  renderPdf(MD_PATH, PDF_PATH, {
+    title: "Model-routing review log",
+    subtitle: "How Claude Code has been routing models",
+    kind: "report", status: "auto-generated", app: "Claude Code",
+  });
   fs.writeFileSync(BLOCK_MD_PATH, renderBlockMd(state));
-  renderPdf(BLOCK_MD_PATH, BLOCK_PDF_PATH);
+  renderPdf(BLOCK_MD_PATH, BLOCK_PDF_PATH, {
+    title: "Auto-mode classifier block log",
+    subtitle: "Auto-mode permission denials (separate from model routing)",
+    kind: "audit", status: "auto-generated", app: "Claude Code",
+  });
 }
 
 (async () => {
