@@ -120,4 +120,13 @@ claude-model-guard/
   SKILL.md                     # skill manifest (triggers + instructions)
   README.md
   scripts/
-    scan-model-switches.mjs    # parser + report rende
+    scan-model-switches.mjs    # parser + report renderer (fallback detection)
+    render-pdf.py              # fpdf2 md->pdf fallback (no headless browser)
+    install.mjs                # add hooks + scheduler + initial scan
+    uninstall.mjs              # remove hooks + scheduler
+  branding/
+    report-brand.json          # teal theme, used by the hq-report renderer
+```
+
+Data/output is written to `~/.claude/claude-model-guard/` (kept separate from
+this code so updating the skill never wipes your log).
