@@ -27,8 +27,17 @@ Updated automatically at **session end**, before **compaction**, and by a
 ## Requirements
 
 - **Node.js** (already required by Claude Code).
-- **Python + `fpdf2`** for the PDF (`pip install fpdf2`). Optional — without it
-  you still get the Markdown reports.
+- **Branded PDF (recommended):** the **hq-report** skill installed at
+  `~/.claude/skills/hq-report/` plus its deps (`pyyaml`, `markdown`, `weasyprint`).
+  When present, reports render through hq-report's branded engine (dark cover,
+  accent headings, styled tables) using this skill's teal theme at
+  [`branding/report-brand.json`](branding/report-brand.json).
+- **Fallback PDF:** `python` + `fpdf2` (`pip install fpdf2`) — a clean basic PDF
+  when hq-report isn't installed.
+- With no Python at all you still get the Markdown reports.
+
+The renderer is chosen automatically: **hq-report → fpdf2 → Markdown-only**. Point
+`CLAUDE_MODEL_GUARD_HQREPORT` at a `render-doc-pdf.py` to override discovery.
 
 ## Install
 

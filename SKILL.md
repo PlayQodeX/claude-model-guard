@@ -71,8 +71,10 @@ node "<skill>/scripts/uninstall.mjs"
 
 - **Install / re-install** (idempotent, migration-safe):
   `node "<skill>/scripts/install.mjs"`  — add `--dry-run` to preview, `--time HH:MM`
-  to set the daily time. Requires Node; PDF needs Python + `fpdf2`
-  (`pip install fpdf2`) — the log still works without it (md only).
+  to set the daily time. Requires Node. Branded PDF renders through the
+  **hq-report** skill when it's installed (WeasyPrint); otherwise it falls back to
+  bundled `fpdf2` (`pip install fpdf2`), then to Markdown-only. Renderer choice is
+  automatic — see `branding/report-brand.json` for the theme.
 - **View reports:** open `~/.claude/claude-model-guard/model-switch-log.pdf`
   (and `auto-mode-blocks.pdf`), or read the matching `.md` files.
 - **Refresh now:** `node "<skill>/scripts/scan-model-switches.mjs" --all`.
