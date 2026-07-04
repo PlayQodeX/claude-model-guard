@@ -1,0 +1,63 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="42%" r="70%">
+      <stop offset="0%" stop-color="#171226"/>
+      <stop offset="60%" stop-color="#0d0b16"/>
+      <stop offset="100%" stop-color="#08070e"/>
+    </radialGradient>
+    <linearGradient id="track" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#glow)"/>
+
+  <!-- headline, centered -->
+  <text x="800" y="150" text-anchor="middle" font-family="DejaVu Sans" font-size="72" font-weight="bold" fill="#f4f2fb">Same session. Different model.</text>
+  <text x="800" y="210" text-anchor="middle" font-family="DejaVu Sans" font-size="28" fill="#9a93b8">A refusal is a 200, not an error. Nothing tells you it happened.</text>
+
+  <!-- diverging track diagram -->
+  <!-- incoming line -->
+  <path d="M 220 480 L 640 480" stroke="#60a5fa" stroke-width="5" fill="none"/>
+  <path d="M 220 480 L 640 480" stroke="#60a5fa" stroke-width="12" fill="none" opacity="0.18" filter="url(#soft)"/>
+
+  <!-- fable chip -->
+  <rect x="120" y="452" width="200" height="56" rx="28" fill="#101024" stroke="#60a5fa" stroke-width="2"/>
+  <text x="220" y="489" text-anchor="middle" font-family="DejaVu Sans Mono" font-size="26" fill="#bfd7fe">fable-5</text>
+
+  <!-- switch node -->
+  <circle cx="640" cy="480" r="16" fill="#0d0b16" stroke="#c4b5fd" stroke-width="4"/>
+  <circle cx="640" cy="480" r="30" fill="none" stroke="#c4b5fd" stroke-width="1.5" opacity="0.45"/>
+  <text x="640" y="415" text-anchor="middle" font-family="DejaVu Sans Mono" font-size="24" fill="#c4b5fd">flagged</text>
+
+  <!-- upper branch: refused, fades out -->
+  <path d="M 640 480 C 760 480 800 380 920 360 L 1130 340" stroke="#5d5878" stroke-width="4" stroke-dasharray="10 12" fill="none" opacity="0.75"/>
+  <g transform="translate(1220,340) rotate(-6)">
+    <rect x="-88" y="-30" width="196" height="60" rx="8" fill="none" stroke="#7a7396" stroke-width="3"/>
+    <text x="10" y="12" text-anchor="middle" font-family="DejaVu Sans Mono" font-size="30" fill="#8d86ab" letter-spacing="6">REFUSED</text>
+  </g>
+
+  <!-- lower branch: served by opus -->
+  <path d="M 640 480 C 780 480 830 600 960 620 L 1150 634" stroke="url(#track)" stroke-width="5" fill="none"/>
+  <path d="M 640 480 C 780 480 830 600 960 620 L 1150 634" stroke="#8b5cf6" stroke-width="14" fill="none" opacity="0.20" filter="url(#soft)"/>
+  <rect x="1160" y="606" width="230" height="56" rx="28" fill="#161028" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="1275" y="643" text-anchor="middle" font-family="DejaVu Sans Mono" font-size="26" fill="#ddd0fe">opus-4-8</text>
+
+  <!-- recorder under the switch -->
+  <circle cx="640" cy="560" r="9" fill="#f87171"/>
+  <circle cx="640" cy="560" r="17" fill="none" stroke="#f87171" stroke-width="1.5" opacity="0.5"/>
+  <text x="668" y="569" font-family="DejaVu Sans Mono" font-size="24" fill="#e8e5f4">logged</text>
+
+  <!-- log tail -->
+  <text x="200" y="760" font-family="DejaVu Sans Mono" font-size="22" fill="#565170">22:14:03  switch   fable-5 &#8594; opus-4-8</text>
+  <text x="200" y="796" font-family="DejaVu Sans Mono" font-size="22" fill="#454060">22:47:51  block    auto-mode classifier (verbatim reason kept)</text>
+  <text x="200" y="832" font-family="DejaVu Sans Mono" font-size="22" fill="#37334f">23:30:00  scan     daily refresh, nothing leaves the machine</text>
+
+  <!-- footer -->
+  <text x="1400" y="832" text-anchor="end" font-family="DejaVu Sans" font-size="26" fill="#8b5cf6" font-weight="bold">claude-model-guard</text>
+  <text x="1400" y="864" text-anchor="end" font-family="DejaVu Sans" font-size="22" fill="#6f6990">@PlayQodeX</text>
+</svg>
