@@ -1,0 +1,27 @@
+<svg width="1280" height="320" viewBox="0 0 1280 320" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="0%" r="120%">
+      <stop offset="0%" stop-color="#171226"/>
+      <stop offset="60%" stop-color="#0d0b16"/>
+      <stop offset="100%" stop-color="#08070e"/>
+    </radialGradient>
+    <linearGradient id="track" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1280" height="320" rx="16" fill="url(#glow)"/>
+
+  <!-- mini track motif, left -->
+  <path d="M 70 160 L 240 160" stroke="#60a5fa" stroke-width="4" fill="none"/>
+  <circle cx="240" cy="160" r="10" fill="#0d0b16" stroke="#c4b5fd" stroke-width="3"/>
+  <path d="M 240 160 C 290 160 305 115 355 108" stroke="#5d5878" stroke-width="3" stroke-dasharray="7 9" fill="none" opacity="0.75"/>
+  <path d="M 240 160 C 295 160 310 205 365 212" stroke="url(#track)" stroke-width="4" fill="none"/>
+  <circle cx="240" cy="215" r="6" fill="#f87171"/>
+
+  <!-- title -->
+  <text x="440" y="150" font-family="DejaVu Sans" font-size="52" font-weight="bold" fill="#f4f2fb">claude-model-guard</text>
+  <text x="440" y="205" font-family="DejaVu Sans" font-size="25" fill="#9a93b8">A passive audit log of Claude Code's model routing.</text>
+  <text x="440" y="243" font-family="DejaVu Sans" font-size="25" fill="#6f6990">Every switch, every classifier block. Local only.</text>
+</svg>

@@ -1,8 +1,8 @@
 ![claude-model-guard: a passive audit log of Claude Code's model routing](assets/banner.svg)
 
-[![MIT license](https://img.shields.io/badge/license-MIT-14B8A6)](LICENSE)
-[![Node.js](https://img.shields.io/badge/runtime-Node.js-0D9488)](#requirements)
-[![Claude Code skill](https://img.shields.io/badge/Claude%20Code-skill-14B8A6)](#install)
+[![MIT license](https://img.shields.io/badge/license-MIT-8B5CF6)](LICENSE)
+[![Node.js](https://img.shields.io/badge/runtime-Node.js-6366F1)](#requirements)
+[![Claude Code skill](https://img.shields.io/badge/Claude%20Code-skill-8B5CF6)](#install)
 
 # claude-model-guard
 
